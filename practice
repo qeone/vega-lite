@@ -1,29 +1,34 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v4.json"
- 
-  ,"data": {"url": "https://raw.githubusercontent.com/qeone/vega-lite/master/LVXRNSA-2.csv"}
-
-  ,"layer": [{
-    "mark": "line"
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "https://raw.githubusercontent.com/qeone/vega-lite/master/LVXRNSA-2.csv"},
+  
+  "layer": [
+    {
+      "mark": "line",
+      "encoding": {
+        "x": {"field": "DATE", "type": "temporal", "timeUnit": "yearmonth"},
+        "y": {"field": "LVXRNSA", "type": "quantitative", "scale": {"type": "linear", "zero": false}}
+        }
+    },
     
-    ,"encoding":
-      {"x":
-        {"field": "DATE"
-        ,"type": "temporal"
-        ,"timeUnit": "yearmonth"}
-      ,"y":
-        {"field": "LVXRNSA"
-        ,"type": "quantitative"
-        ,"scale":
-          {"type": "log"
-          ,"zero": false}}}
+    {
+      "mark": {"type": "line", "color": "firebrick"},
+      "transform": [
+        {"regression": "LVXRNSA", "on": "DATE"}
+      ],
+      "encoding": {
+        "x": {"field": "DATE", "type": "temporal", "timeUnit": "yearmonth"},
+        "y": {"field": "LVXRNSA", "type": "quantitative"}
+      }
+    },
 
-  ,"mark": "line"
-  ,"color": "firebrick"
-
-  ,"transform": [{
-    "regression": "LVXRNSA"
-    ,"on": "DATE"
-    ,"params": true
-  }]
+    {
+      "transform": [
+        {"regression": "LVXRNSA", "on": "DATE", "params": "true"},
+        {"calculate": "'R²: '+format(datum.rSquared, '.2f')", "as": "R2"}
+      ],
+      "mark": {"type": "text", "color": "firebrick", "x": "width", "align": "right", "y": -5},
+      "encoding": {"text": {"type": "nominal", "field": "R2"}}
+    }
+  ]
 }
