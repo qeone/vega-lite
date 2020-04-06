@@ -14,7 +14,7 @@
     {
       "mark": {"type": "line", "color": "firebrick"},
       "transform": [
-        {"regression": "LVXRNSA", "on": "DATE"}
+        {"regression": "LVXRNSA", "on": "DATE", "method": "exp"}
       ],
       "encoding": {
         "x": {"field": "DATE", "type": "temporal", "timeUnit": "yearmonth"},
@@ -24,7 +24,7 @@
 
     {
       "transform": [
-        {"regression": "LVXRNSA", "on": "DATE", "params": "true"},
+        {"regression": "LVXRNSA", "on": "DATE", "method": "exp", "params": "true"},
         {"calculate": "'R²: '+format(datum.rSquared, '.2f')", "as": "R2"}
       ],
       "mark": {"type": "text", "color": "firebrick", "x": "width", "align": "right", "y": -5},
