@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "data": {"url": "https://raw.githubusercontent.com/qeone/vega-lite/master/LVXRNSA-2.csv"},
+  "data": {"url": "https://raw.githubusercontent.com/qeone/vega-lite/master/LVXRNSA-2.csv", "format": {"type":"csv"}},
   
   "layer": [
     {
@@ -14,7 +14,7 @@
     {
       "mark": {"type": "line", "color": "firebrick"},
       "transform": [
-        {"regression": "LVXRNSA", "on": "DATE", "method": "exp"}
+        {"regression": "LVXRNSA", "on": "DATE", "method": "poly", "order": 3}
       ],
       "encoding": {
         "x": {"field": "DATE", "type": "temporal", "timeUnit": "yearmonth"},
@@ -24,7 +24,7 @@
 
     {
       "transform": [
-        {"regression": "LVXRNSA", "on": "DATE", "method": "exp", "params": "true"},
+        {"regression": "LVXRNSA", "on": "DATE", "method": "poly", "order": 3, "params": "true"},
         {"calculate": "'R²: '+format(datum.rSquared, '.2f')", "as": "R2"}
       ],
       "mark": {"type": "text", "color": "firebrick", "x": "width", "align": "right", "y": -5},
